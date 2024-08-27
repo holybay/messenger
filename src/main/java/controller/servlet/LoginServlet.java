@@ -35,8 +35,8 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", userOut);
         } catch (IllegalArgumentException e) {
-            writer.print(e.getMessage());
-            resp.sendRedirect(req.getContextPath() + "/api/login");
+            req.setAttribute("message", e.getMessage());
+            doGet(req, resp);
         } catch (RuntimeException e) {
             printError(writer, e.getMessage());
         }
