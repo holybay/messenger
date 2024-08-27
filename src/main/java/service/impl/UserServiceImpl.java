@@ -72,7 +72,8 @@ public class UserServiceImpl implements UserService {
         passwordCheck(password, errors);
         inputErrorsCheck(errors);
         if (!isValidUser(loginInDto)) {
-            throw new IllegalArgumentException("User with such name and password doesn't exist!" + login);
+            throw new IllegalArgumentException(String.format("User \"%s\" doesn't exist " +
+                    "or you've entered incorrect password!", login));
         }
     }
 
