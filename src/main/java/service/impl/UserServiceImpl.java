@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class UserServiceImpl implements UserService {
 
@@ -43,13 +44,16 @@ public class UserServiceImpl implements UserService {
     }
 
     private User toEntity(UserCreateInDto dto) {
-        User user = new User();
-        user.setFullName(dto.getFullName());
-        user.setLogin(dto.getLogin());
-        user.setPassword(dto.getPassword());
-        user.setDateOfBirth(dto.getDateOfBirth());
-        user.setRegDate(LocalDateTime.now());
-        user.setRole(User.ERole.USER);
+        User user = User.builder()
+                        .setId(UUID.randomUUID())
+                        .setFullName(dto.getFullName())
+                        .setLogin(dto.getLogin())
+                        .setPassword(dto.getPassword())
+                        .setDateOfBirth(dto.getDateOfBirth())
+                        .setCreatedAt(LocalDateTime.now())
+                        .setRole(User.ERole.USER)
+                        .build();
+        user.setUpdatedAt(user.getCreatedAt());
         return user;
     }
 
@@ -58,7 +62,8 @@ public class UserServiceImpl implements UserService {
         userOut.setId(user.getId());
         userOut.setFullName(user.getFullName());
         userOut.setLogin(user.getLogin());
-        userOut.setRegDate(user.getRegDate());
+        userOut.setCreatedAt(user.getCreatedAt());
+        userOut.setUpdatedAt(user.getUpdatedAt());
         userOut.setDateOfBirth(user.getDateOfBirth());
         userOut.setRole(user.getRole());
         return userOut;

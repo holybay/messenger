@@ -5,21 +5,23 @@ import storage.entity.User;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class UserLoginOutDto {
 
-    private Long id;
+    private UUID id;
     private String fullName;
     private String login;
     private LocalDate dateOfBirth;
-    private LocalDateTime regDate;
+    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt;
     private User.ERole role;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -47,12 +49,20 @@ public class UserLoginOutDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public LocalDateTime getRegDate() {
-        return regDate;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setRegDate(LocalDateTime regDate) {
-        this.regDate = regDate;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public User.ERole getRole() {
@@ -68,12 +78,12 @@ public class UserLoginOutDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserLoginOutDto that = (UserLoginOutDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName) && Objects.equals(login, that.login) && Objects.equals(dateOfBirth, that.dateOfBirth) && Objects.equals(regDate, that.regDate) && role == that.role;
+        return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName) && Objects.equals(login, that.login) && Objects.equals(dateOfBirth, that.dateOfBirth) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(createdAt, that.createdAt) && role == that.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fullName, login, dateOfBirth, regDate, role);
+        return Objects.hash(id, fullName, login, dateOfBirth, updatedAt, createdAt, role);
     }
 
     @Override
@@ -83,7 +93,8 @@ public class UserLoginOutDto {
                 ", fullName='" + fullName + '\'' +
                 ", login='" + login + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", regDate=" + regDate +
+                ", updatedAt=" + updatedAt +
+                ", createdAt=" + createdAt +
                 ", role=" + role +
                 '}';
     }
