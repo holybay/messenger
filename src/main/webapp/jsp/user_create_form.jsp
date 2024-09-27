@@ -9,7 +9,7 @@
 </head>
 <body>
 <main>
-    <form name="user_create_form" method="post" action="http://localhost:8080/messager/api/user">
+    <form name="user_create_form" method="post" action="http://localhost:8080/messenger/api/user">
         <fieldset>
             <legend>Please fill in all fields:</legend>
             <label for="full_name">Full Name:</label>

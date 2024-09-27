@@ -12,7 +12,7 @@
     <c:if test="${message != null}">
         <c:out value="${message}"/>
     </c:if>
-    <form name="user_login_form" method="post" action="http://localhost:8080/messager/api/login">
+    <form name="user_login_form" method="post" action="http://localhost:8080/messenger/api/login">
         <fieldset>
             <legend>Please log in:</legend>
             <label for="user_login">Login:</label>
