@@ -55,14 +55,14 @@ public class UserServlet extends HttpServlet {
     private UserCreateInDto toInputDto(HttpServletRequest req) {
         UserCreateInDto dto = new UserCreateInDto();
         dto.setFullName(req.getParameter(PARAM_FULL_NAME));
-        dto.setDateOfBirth(dateParse(req, PARAM_DOB));
+        dto.setDateOfBirth(dateParse(req));
         dto.setLogin(req.getParameter(PARAM_LOGIN));
         dto.setPassword(req.getParameter(PARAM_PASSWORD));
         return dto;
     }
 
-    private LocalDate dateParse(HttpServletRequest req, String paramName) {
-        String dobRaw = req.getParameter(paramName);
+    private LocalDate dateParse(HttpServletRequest req) {
+        String dobRaw = req.getParameter(PARAM_DOB);
         if (dobRaw == null) {
             throw new IllegalArgumentException("Wrong date format. Please check the provided input!");
         }
