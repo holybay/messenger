@@ -2,7 +2,7 @@ CREATE SCHEMA app
     AUTHORIZATION postgres;
 
 CREATE TABLE app.role(
-id UUID,
+id BIGSERIAL,
 name CHARACTER VARYING(30) NOT NULL,
 CONSTRAINT role_pk PRIMARY KEY (id)
 );
@@ -18,7 +18,7 @@ password CHARACTER VARYING NOT NULL,
 date_of_birth DATE NOT NULL,
 updated_at TIMESTAMP NOT NULL,
 created_at TIMESTAMP NOT NULL,
-role_id UUID,
+role_id BIGINT,
 CONSTRAINT user_pk PRIMARY KEY (id),
 CONSTRAINT user_role_fk  FOREIGN KEY (role_id) REFERENCES app.role(id),
 CONSTRAINT login_unique  UNIQUE(login)
