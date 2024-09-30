@@ -1,6 +1,6 @@
 package storage.impl;
 
-import storage.UserStorage;
+import storage.IUserStorage;
 import storage.entity.User;
 
 import java.time.LocalDate;
@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class UserStorageImpl implements UserStorage {
+public class UserStorage implements IUserStorage {
 
-    private static final UserStorage INSTANCE = new UserStorageImpl();
+    private static final IUserStorage INSTANCE = new UserStorage();
     private final Map<UUID, User> storage = new HashMap<>();
     private final Map<String, User> loginStorage = new HashMap<>();
 
@@ -30,10 +30,10 @@ public class UserStorageImpl implements UserStorage {
         loginStorage.put(admin.getLogin(), admin);
     }
 
-    private UserStorageImpl() {
+    private UserStorage() {
     }
 
-    public static UserStorage getInstance() {
+    public static IUserStorage getInstance() {
         return INSTANCE;
     }
 

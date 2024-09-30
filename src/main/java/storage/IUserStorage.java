@@ -2,7 +2,7 @@ package storage;
 
 import storage.entity.User;
 
-public interface UserStorage {
+public interface IUserStorage {
 
     User save(User user);
 

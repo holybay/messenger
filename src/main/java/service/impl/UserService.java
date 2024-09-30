@@ -1,12 +1,12 @@
 package service.impl;
 
-import service.UserService;
+import service.IUserService;
 import service.dto.UserCreateInDto;
 import service.dto.UserLoginInDto;
 import service.dto.UserLoginOutDto;
-import storage.UserStorage;
+import storage.IUserStorage;
 import storage.entity.User;
-import storage.impl.UserStorageImpl;
+import storage.impl.UserStorage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UserServiceImpl implements UserService {
+public class UserService implements IUserService {
 
-    private static final UserService INSTANCE = new UserServiceImpl();
+    private static final IUserService INSTANCE = new UserService();
     private static final int FULL_NAME_PARTS_COUNT = 2;
-    private final UserStorage storage = UserStorageImpl.getInstance();
+    private final IUserStorage storage = UserStorage.getInstance();
 
-    private UserServiceImpl() {
+    private UserService() {
     }
 
-    public static UserService getInstance() {
+    public static IUserService getInstance() {
         return INSTANCE;
     }
 

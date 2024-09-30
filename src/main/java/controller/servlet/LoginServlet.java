@@ -6,10 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import service.UserService;
+import service.IUserService;
 import service.dto.UserLoginInDto;
 import service.dto.UserLoginOutDto;
-import service.impl.UserServiceImpl;
+import service.impl.UserService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 
     public static final String PARAM_LOGIN = "login";
     public static final String PARAM_PASSWORD = "password";
-    private final UserService service = UserServiceImpl.getInstance();
+    private final IUserService service = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

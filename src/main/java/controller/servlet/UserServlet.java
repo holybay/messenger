@@ -5,9 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.UserService;
+import service.IUserService;
 import service.dto.UserCreateInDto;
-import service.impl.UserServiceImpl;
+import service.impl.UserService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +22,7 @@ public class UserServlet extends HttpServlet {
     private static final String PARAM_DOB = "dateOfBirth";
     private static final String PARAM_LOGIN = "login";
     private static final String PARAM_PASSWORD = "password";
-    private final UserService service = UserServiceImpl.getInstance();
+    private final IUserService service = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
