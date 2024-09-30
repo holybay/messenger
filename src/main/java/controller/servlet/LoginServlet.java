@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import service.IUserService;
 import service.dto.UserLoginInDto;
 import service.dto.UserLoginOutDto;
-import service.impl.UserService;
+import service.factory.ServiceFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 
     public static final String PARAM_LOGIN = "login";
     public static final String PARAM_PASSWORD = "password";
-    private final IUserService service = UserService.getInstance();
+    private final IUserService service = ServiceFactory.getInstance().getUserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

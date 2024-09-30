@@ -6,7 +6,6 @@ import service.dto.UserLoginInDto;
 import service.dto.UserLoginOutDto;
 import storage.IUserStorage;
 import storage.entity.User;
-import storage.factory.StorageFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,17 +15,12 @@ import java.util.UUID;
 
 public class UserService implements IUserService {
 
-    private static final IUserService INSTANCE = new UserService();
     private static final int FULL_NAME_PARTS_COUNT = 2;
-    private final IUserStorage storage = StorageFactory.getInstance().getUserStorage();
+    private final IUserStorage storage;
 
-    private UserService() {
+    public UserService(IUserStorage storage) {
+        this.storage = storage;
     }
-
-    public static IUserService getInstance() {
-        return INSTANCE;
-    }
-
 
     @Override
     public boolean create(UserCreateInDto dto) {
