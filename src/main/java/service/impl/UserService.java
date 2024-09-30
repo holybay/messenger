@@ -6,7 +6,7 @@ import service.dto.UserLoginInDto;
 import service.dto.UserLoginOutDto;
 import storage.IUserStorage;
 import storage.entity.User;
-import storage.impl.UserStorage;
+import storage.factory.StorageFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ public class UserService implements IUserService {
 
     private static final IUserService INSTANCE = new UserService();
     private static final int FULL_NAME_PARTS_COUNT = 2;
-    private final IUserStorage storage = UserStorage.getInstance();
+    private final IUserStorage storage = StorageFactory.getInstance().getUserStorage();
 
     private UserService() {
     }
@@ -44,15 +44,7 @@ public class UserService implements IUserService {
     }
 
     private User toEntity(UserCreateInDto dto) {
-        User user = User.builder()
-                        .setId(UUID.randomUUID())
-                        .setFullName(dto.getFullName())
-                        .setLogin(dto.getLogin())
-                        .setPassword(dto.getPassword())
-                        .setDateOfBirth(dto.getDateOfBirth())
-                        .setCreatedAt(LocalDateTime.now())
-                        .setRole(User.ERole.USER)
-                        .build();
+        User user = User.builder().setId(UUID.randomUUID()).setFullName(dto.getFullName()).setLogin(dto.getLogin()).setPassword(dto.getPassword()).setDateOfBirth(dto.getDateOfBirth()).setCreatedAt(LocalDateTime.now()).setRole(User.ERole.USER).build();
         user.setUpdatedAt(user.getCreatedAt());
         return user;
     }
@@ -77,8 +69,7 @@ public class UserService implements IUserService {
         passwordCheck(password, errors);
         inputErrorsCheck(errors);
         if (!isValidUser(loginInDto)) {
-            throw new IllegalArgumentException(String.format("User \"%s\" doesn't exist " +
-                    "or you've entered incorrect password!", login));
+            throw new IllegalArgumentException(String.format("User \"%s\" doesn't exist " + "or you've entered incorrect password!", login));
         }
     }
 
