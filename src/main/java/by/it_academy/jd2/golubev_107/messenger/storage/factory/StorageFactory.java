@@ -4,7 +4,10 @@ import by.it_academy.jd2.golubev_107.messenger.storage.IUserStorage;
 import by.it_academy.jd2.golubev_107.messenger.storage.connection.factory.ConnectionManagerFactory;
 import by.it_academy.jd2.golubev_107.messenger.storage.impl.UserStorage;
 
-public class StorageFactory {
+import java.io.Closeable;
+import java.io.IOException;
+
+public class StorageFactory implements Closeable {
 
     private static final StorageFactory INSTANCE = new StorageFactory(ConnectionManagerFactory.getInstance());
     private final IUserStorage userStorage;
@@ -19,5 +22,10 @@ public class StorageFactory {
 
     public IUserStorage getUserStorage() {
         return userStorage;
+    }
+
+    @Override
+    public void close() throws IOException {
+        ConnectionManagerFactory.getInstance().close();
     }
 }

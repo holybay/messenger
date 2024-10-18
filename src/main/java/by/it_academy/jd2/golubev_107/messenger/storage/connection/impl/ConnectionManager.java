@@ -4,24 +4,23 @@ import by.it_academy.jd2.golubev_107.messenger.storage.connection.IConnectionMan
 import by.it_academy.jd2.golubev_107.messenger.storage.connection.config.ConnectionManagerConfig;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ConnectionManager implements IConnectionManager {
 
 
-    private final DataSource dataSource;
+    private final ComboPooledDataSource dataSource;
 
     public ConnectionManager(ConnectionManagerConfig config) {
-        ComboPooledDataSource cpds = new ComboPooledDataSource();
+        dataSource = new ComboPooledDataSource();
         try {
-            cpds.setDriverClass(config.getDriver());
-            cpds.setJdbcUrl(config.getDbUrl());
-            cpds.setUser(config.getUser());
-            cpds.setPassword(config.getPassword());
-            dataSource = cpds;
+            dataSource.setDriverClass(config.getDriver());
+            dataSource.setJdbcUrl(config.getDbUrl());
+            dataSource.setUser(config.getUser());
+            dataSource.setPassword(config.getPassword());
         } catch (PropertyVetoException e) {
             throw new RuntimeException("The provided connection pool config isn't correct!", e);
         }
@@ -30,5 +29,12 @@ public class ConnectionManager implements IConnectionManager {
     @Override
     public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
+    }
+
+    @Override
+    public void close() throws IOException {
+        if (dataSource != null) {
+            dataSource.close();
+        }
     }
 }

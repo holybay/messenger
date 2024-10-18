@@ -7,7 +7,10 @@ import by.it_academy.jd2.golubev_107.messenger.storage.connection.IConnectionMan
 import by.it_academy.jd2.golubev_107.messenger.storage.connection.config.ConnectionManagerConfig;
 import by.it_academy.jd2.golubev_107.messenger.storage.connection.impl.ConnectionManager;
 
-public class ConnectionManagerFactory {
+import java.io.Closeable;
+import java.io.IOException;
+
+public class ConnectionManagerFactory implements Closeable {
 
     private static final String JDBC_DRIVER = "app.db.driver";
     private static final String DB_URL = "app.db.url";
@@ -36,4 +39,10 @@ public class ConnectionManagerFactory {
         return connManager;
     }
 
+    @Override
+    public void close() throws IOException {
+        if (connManager != null) {
+            connManager.close();
+        }
+    }
 }
