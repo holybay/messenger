@@ -1,19 +1,45 @@
 package by.it_academy.jd2.golubev_107.messenger.storage.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @Column(name = "id")
     private UUID id;
+
+    @Column(name = "full_name")
     private String fullName;
+
+    @Column(name = "login")
     private String login;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
+
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private ERole role;
 
     private User(UUID id, String fullName, String login, String password, LocalDate dateOfBirth,
@@ -26,6 +52,9 @@ public class User {
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
         this.role = role;
+    }
+
+    public User() {
     }
 
     public static UserBuilder builder() {

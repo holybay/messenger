@@ -1,19 +1,18 @@
 package by.it_academy.jd2.golubev_107.messenger.storage.factory;
 
 import by.it_academy.jd2.golubev_107.messenger.storage.IUserStorage;
-import by.it_academy.jd2.golubev_107.messenger.storage.connection.factory.ConnectionManagerFactory;
-import by.it_academy.jd2.golubev_107.messenger.storage.impl.UserStorage;
+import by.it_academy.jd2.golubev_107.messenger.storage.connection.HibernateManager;
+import by.it_academy.jd2.golubev_107.messenger.storage.impl.UserStorageHibernate;
 
-import java.io.Closeable;
-import java.io.IOException;
+public class StorageFactory implements AutoCloseable {
 
-public class StorageFactory implements Closeable {
-
-    private static final StorageFactory INSTANCE = new StorageFactory(ConnectionManagerFactory.getInstance());
+    private static final StorageFactory INSTANCE = new StorageFactory();
     private final IUserStorage userStorage;
+    private final HibernateManager hibernateManager;
 
-    public StorageFactory(ConnectionManagerFactory cmf) {
-        this.userStorage = new UserStorage(cmf.get());
+    public StorageFactory() {
+        hibernateManager = new HibernateManager("unit");
+        this.userStorage = new UserStorageHibernate(hibernateManager);
     }
 
     public static StorageFactory getInstance() {
@@ -25,7 +24,7 @@ public class StorageFactory implements Closeable {
     }
 
     @Override
-    public void close() throws IOException {
-        ConnectionManagerFactory.getInstance().close();
+    public void close() throws Exception {
+        hibernateManager.close();
     }
 }
