@@ -18,10 +18,17 @@ public class UserStorage implements IUserStorage {
     private static final String INSERT_USER_QUERY = """
             INSERT INTO app.users (id, full_name, login, password, date_of_birth, updated_at, created_at, role)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?);""";
+    private static final String UPDATE_USER_QUERY = """
+            UPDATE app.users (id, full_name, login, password, date_of_birth, updated_at, created_at, role)
+            SET full_name = ?, login = ?, password = ?, date_of_birth = ?, updated_at = ?, role = ?);""";
     private static final String SELECT_USER_BY_LOGIN_QUERY = """
             SELECT id, full_name, login, password, date_of_birth, updated_at, created_at, role
             FROM app.users
             WHERE login = ?;""";
+    private static final String SELECT_USER_BY_ID_QUERY = """
+            SELECT id, full_name, login, password, date_of_birth, updated_at, created_at, role
+            FROM app.users
+            WHERE id = ?;""";
     private final IConnectionManager connectionManager;
 
     public UserStorage(IConnectionManager connectionManager) {
@@ -45,6 +52,42 @@ public class UserStorage implements IUserStorage {
             DBUtil.connectionClose(conn);
         }
         return readByLogin(user.getLogin());
+    }
+
+    @Override
+    public User update(User user) {
+        Connection conn = null;
+        try {
+            conn = connectionManager.getConnection();
+            conn.setAutoCommit(false);
+            DBUtil.transactionBegin(conn);
+            updateUser(user, conn);
+
+            conn.commit();
+        } catch (SQLException | RuntimeException e) {
+            DBUtil.transactionRollback(conn);
+            throw new RuntimeException("Failed to update the user: " + user, e);
+        } finally {
+            DBUtil.connectionClose(conn);
+        }
+        return readByLogin(user.getLogin());
+    }
+
+    @Override
+    public User readById(UUID id) {
+        try (Connection conn = connectionManager.getConnection()) {
+            try (PreparedStatement selectUser = conn.prepareStatement(SELECT_USER_BY_ID_QUERY)) {
+                selectUser.setObject(1, id);
+                try (ResultSet rs = selectUser.executeQuery()) {
+                    if (rs.next()) {
+                        return mapper(rs);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to read a user by id: " + id, e);
+        }
+        return null;
     }
 
     @Override
@@ -97,4 +140,21 @@ public class UserStorage implements IUserStorage {
         }
     }
 
+    private void updateUser(User user, Connection conn) throws SQLException {
+        try (PreparedStatement insertUserStmt = conn.prepareStatement(UPDATE_USER_QUERY)) {
+            insertUserStmt.setString(1, user.getFullName());
+            insertUserStmt.setString(2, user.getLogin());
+            insertUserStmt.setString(3, user.getPassword());
+            insertUserStmt.setDate(4, Date.valueOf(user.getDateOfBirth()));
+            insertUserStmt.setTimestamp(5, Timestamp.valueOf(user.getUpdatedAt()));
+            insertUserStmt.setString(6, user.getRole().name());
+            int rowsUpdated = insertUserStmt.executeUpdate();
+
+            insertUserStmt.clearParameters();
+            if (rowsUpdated != 1) {
+                DBUtil.transactionRollback(conn);
+                throw new IllegalStateException("Updated unexpected amount of rows: " + rowsUpdated);
+            }
+        }
+    }
 }
