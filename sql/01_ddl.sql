@@ -14,6 +14,19 @@ CONSTRAINT users_pk PRIMARY KEY (id),
 CONSTRAINT users_login_unq UNIQUE(login)
 );
 
+CREATE TABLE app.messages (
+	id bigserial NOT NULL,
+	user_from_id uuid NULL,
+	user_to_id uuid NULL,
+	"text" CHARACTER VARYING NULL,
+	delivered_at TIMESTAMP NOT NULL,
+	updated_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+	CONSTRAINT messages_pk PRIMARY KEY (id),
+	CONSTRAINT messages_users_from_fk FOREIGN KEY (user_from_id) REFERENCES app.users (id),
+	CONSTRAINT messages_users_to_fk FOREIGN KEY (user_to_id) REFERENCES app.users (id)
+);
+
 
 
 
