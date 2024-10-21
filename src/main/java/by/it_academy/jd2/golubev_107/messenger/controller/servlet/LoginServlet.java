@@ -2,7 +2,7 @@ package by.it_academy.jd2.golubev_107.messenger.controller.servlet;
 
 import by.it_academy.jd2.golubev_107.messenger.service.IUserService;
 import by.it_academy.jd2.golubev_107.messenger.service.dto.UserLoginInDto;
-import by.it_academy.jd2.golubev_107.messenger.service.dto.UserLoginOutDto;
+import by.it_academy.jd2.golubev_107.messenger.service.dto.UserOutDto;
 import by.it_academy.jd2.golubev_107.messenger.service.factory.ServiceFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         try {
             UserLoginInDto userIn = toUserLoginInDto(req);
-            UserLoginOutDto userOut = service.login(userIn);
+            UserOutDto userOut = service.login(userIn);
             HttpSession session = req.getSession();
             session.setAttribute("user", userOut);
         } catch (IllegalArgumentException e) {

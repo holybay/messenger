@@ -3,7 +3,7 @@ package by.it_academy.jd2.golubev_107.messenger.service.impl;
 import by.it_academy.jd2.golubev_107.messenger.service.IUserService;
 import by.it_academy.jd2.golubev_107.messenger.service.dto.UserCreateInDto;
 import by.it_academy.jd2.golubev_107.messenger.service.dto.UserLoginInDto;
-import by.it_academy.jd2.golubev_107.messenger.service.dto.UserLoginOutDto;
+import by.it_academy.jd2.golubev_107.messenger.service.dto.UserOutDto;
 import by.it_academy.jd2.golubev_107.messenger.storage.IUserStorage;
 import by.it_academy.jd2.golubev_107.messenger.storage.entity.User;
 
@@ -31,10 +31,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserLoginOutDto login(UserLoginInDto inDto) {
+    public UserOutDto login(UserLoginInDto inDto) {
         validateLogin(inDto);
         User userOut = storage.readByLogin(inDto.getLogin());
-        return toUserLoginOut(userOut);
+        return toUserOutDto(userOut);
     }
 
     private User toEntity(UserCreateInDto dto) {
@@ -43,8 +43,8 @@ public class UserService implements IUserService {
         return user;
     }
 
-    private UserLoginOutDto toUserLoginOut(User user) {
-        UserLoginOutDto userOut = new UserLoginOutDto();
+    private UserOutDto toUserOutDto(User user) {
+        UserOutDto userOut = new UserOutDto();
         userOut.setId(user.getId());
         userOut.setFullName(user.getFullName());
         userOut.setLogin(user.getLogin());

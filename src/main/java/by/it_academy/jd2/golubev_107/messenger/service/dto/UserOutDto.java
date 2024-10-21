@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-public class UserLoginOutDto {
+public class UserOutDto {
 
     private UUID id;
     private String fullName;
@@ -77,7 +77,7 @@ public class UserLoginOutDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserLoginOutDto that = (UserLoginOutDto) o;
+        UserOutDto that = (UserOutDto) o;
         return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName) && Objects.equals(login, that.login) && Objects.equals(dateOfBirth, that.dateOfBirth) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(createdAt, that.createdAt) && role == that.role;
     }
 
