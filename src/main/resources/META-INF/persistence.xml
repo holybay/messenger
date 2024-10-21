@@ -15,7 +15,7 @@
 
             <property name="hibernate.default_schema" value="app"/>
 
-             <property name="jakarta.persistence.schema-generation.database.action" value="validate" />
+            <property name="jakarta.persistence.schema-generation.database.action" value="validate"/>
             <!-- display SQL in console -->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
