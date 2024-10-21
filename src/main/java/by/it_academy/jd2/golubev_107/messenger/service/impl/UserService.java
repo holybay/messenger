@@ -37,6 +37,18 @@ public class UserService implements IUserService {
         return toUserOutDto(userOut);
     }
 
+    @Override
+    public UserOutDto getById(UUID id) {
+        if (id == null) {
+            throw new RuntimeException("User id can't be blank!");
+        }
+        User user = storage.readById(id);
+        if (user == null) {
+            throw new RuntimeException("User with such id doesn't exist: " + id);
+        }
+        return toUserOutDto(user);
+    }
+
     private User toEntity(UserCreateInDto dto) {
         User user = User.builder().setId(UUID.randomUUID()).setFullName(dto.getFullName()).setLogin(dto.getLogin()).setPassword(dto.getPassword()).setDateOfBirth(dto.getDateOfBirth()).setCreatedAt(LocalDateTime.now()).setRole(User.ERole.USER).build();
         user.setUpdatedAt(user.getCreatedAt());
