@@ -6,6 +6,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,12 +32,15 @@ public class User {
     private String password;
 
     @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
     private LocalDate dateOfBirth;
 
     @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updatedAt;
 
     @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
     @Column(name = "role")
