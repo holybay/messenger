@@ -49,6 +49,23 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
+    public Message() {
+    }
+
+    private Message(Long id, String text, User from, User to, LocalDateTime deliveredAt, LocalDateTime updatedAt, LocalDateTime createdAt) {
+        this.id = id;
+        this.text = text;
+        this.from = from;
+        this.to = to;
+        this.deliveredAt = deliveredAt;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+    }
+
+    public static MessageBuilder builder() {
+        return new MessageBuilder();
+    }
+
     public Long getId() {
         return id;
     }
@@ -110,11 +127,7 @@ public class Message {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return Objects.equals(id, message.id) && Objects.equals(text, message.text)
-                && Objects.equals(from, message.from) && Objects.equals(to, message.to)
-                && Objects.equals(deliveredAt, message.deliveredAt)
-                && Objects.equals(updatedAt, message.updatedAt)
-                && Objects.equals(createdAt, message.createdAt);
+        return Objects.equals(id, message.id) && Objects.equals(text, message.text) && Objects.equals(from, message.from) && Objects.equals(to, message.to) && Objects.equals(deliveredAt, message.deliveredAt) && Objects.equals(updatedAt, message.updatedAt) && Objects.equals(createdAt, message.createdAt);
     }
 
     @Override
@@ -124,14 +137,59 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", from=" + from +
-                ", to=" + to +
-                ", deliveredAt=" + deliveredAt +
-                ", updatedAt=" + updatedAt +
-                ", createdAt=" + createdAt +
-                '}';
+        return "Message{" + "id=" + id + ", text='" + text + '\'' + ", from=" + from + ", to=" + to + ", deliveredAt=" + deliveredAt + ", updatedAt=" + updatedAt + ", createdAt=" + createdAt + '}';
+    }
+
+    public static class MessageBuilder {
+
+        private Long id;
+        private String text;
+        private User from;
+        private User to;
+        private LocalDateTime deliveredAt;
+        private LocalDateTime updatedAt;
+        private LocalDateTime createdAt;
+
+        private MessageBuilder() {
+        }
+
+        public MessageBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public MessageBuilder setText(String text) {
+            this.text = text;
+            return this;
+        }
+
+        public MessageBuilder setFrom(User from) {
+            this.from = from;
+            return this;
+        }
+
+        public MessageBuilder setTo(User to) {
+            this.to = to;
+            return this;
+        }
+
+        public MessageBuilder setDeliveredAt(LocalDateTime deliveredAt) {
+            this.deliveredAt = deliveredAt;
+            return this;
+        }
+
+        public MessageBuilder setUpdatedAt(LocalDateTime updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        public MessageBuilder setCreatedAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        public Message build() {
+            return new Message(id, text, from, to, deliveredAt, updatedAt, createdAt);
+        }
     }
 }
