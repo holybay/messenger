@@ -3,10 +3,12 @@ package by.it_academy.jd2.golubev_107.messenger.controller.listener;
 import by.it_academy.jd2.golubev_107.messenger.storage.factory.StorageFactory;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.annotation.WebListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@WebListener
 public class AppListener implements ServletContextListener {
 
     private List<AutoCloseable> closeables;
@@ -16,7 +18,7 @@ public class AppListener implements ServletContextListener {
         closeables = new ArrayList<>();
         closeables.add(StorageFactory.getInstance());
         sce.getServletContext().setRequestCharacterEncoding("UTF-8");
-        sce.getServletContext().setResponseCharacterEncoding("text/html; charset=UTF-8");
+        sce.getServletContext().setResponseCharacterEncoding("UTF-8");
         System.out.println("Context Initialized");
     }
 
