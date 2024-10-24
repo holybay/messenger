@@ -1,8 +1,8 @@
 package by.it_academy.jd2.golubev_107.messenger.controller.servlet;
 
 import by.it_academy.jd2.golubev_107.messenger.service.IUserService;
-import by.it_academy.jd2.golubev_107.messenger.service.dto.UserLoginInDto;
-import by.it_academy.jd2.golubev_107.messenger.service.dto.UserOutDto;
+import by.it_academy.jd2.golubev_107.messenger.service.dto.user.UserLoginInDto;
+import by.it_academy.jd2.golubev_107.messenger.service.dto.user.UserOutDto;
 import by.it_academy.jd2.golubev_107.messenger.service.factory.ServiceFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

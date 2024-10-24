@@ -1,4 +1,4 @@
-package by.it_academy.jd2.golubev_107.messenger.service.dto;
+package by.it_academy.jd2.golubev_107.messenger.service.dto.user;
 
 import by.it_academy.jd2.golubev_107.messenger.storage.entity.User;
 
