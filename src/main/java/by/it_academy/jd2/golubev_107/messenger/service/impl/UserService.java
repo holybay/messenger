@@ -11,6 +11,7 @@ import by.it_academy.jd2.golubev_107.messenger.storage.entity.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class UserService implements IUserService {
@@ -47,6 +48,15 @@ public class UserService implements IUserService {
             throw new RuntimeException("User with such id doesn't exist: " + id);
         }
         return Mapper.toUserOutDto(user);
+    }
+
+    @Override
+    public User getByLogin(String login) {
+        User user = storage.readByLogin(login);
+        if (user == null) {
+            throw new NoSuchElementException("There is no such user within the system: " + login);
+        }
+        return user;
     }
 
     private void validateLogin(UserLoginInDto loginInDto) {
