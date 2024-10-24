@@ -6,4 +6,8 @@
          version="6.0"
          metadata-complete="false">
     <display-name>Messenger</display-name>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern/>
+    </filter-mapping>
 </web-app>
