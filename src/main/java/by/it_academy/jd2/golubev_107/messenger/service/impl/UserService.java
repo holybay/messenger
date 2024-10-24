@@ -1,5 +1,6 @@
 package by.it_academy.jd2.golubev_107.messenger.service.impl;
 
+import by.it_academy.jd2.golubev_107.messenger.platform.Mapper;
 import by.it_academy.jd2.golubev_107.messenger.service.IUserService;
 import by.it_academy.jd2.golubev_107.messenger.service.dto.user.UserCreateInDto;
 import by.it_academy.jd2.golubev_107.messenger.service.dto.user.UserLoginInDto;
@@ -8,7 +9,6 @@ import by.it_academy.jd2.golubev_107.messenger.storage.IUserStorage;
 import by.it_academy.jd2.golubev_107.messenger.storage.entity.User;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +25,7 @@ public class UserService implements IUserService {
     @Override
     public boolean create(UserCreateInDto dto) {
         validateCreate(dto);
-        User toSave = toEntity(dto);
+        User toSave = Mapper.toUserEntity(dto);
         User saved = storage.save(toSave);
         return saved.getId() != null;
     }
@@ -34,7 +34,7 @@ public class UserService implements IUserService {
     public UserOutDto login(UserLoginInDto inDto) {
         validateLogin(inDto);
         User userOut = storage.readByLogin(inDto.getLogin());
-        return toUserOutDto(userOut);
+        return Mapper.toUserOutDto(userOut);
     }
 
     @Override
@@ -46,25 +46,7 @@ public class UserService implements IUserService {
         if (user == null) {
             throw new RuntimeException("User with such id doesn't exist: " + id);
         }
-        return toUserOutDto(user);
-    }
-
-    private User toEntity(UserCreateInDto dto) {
-        User user = User.builder().setId(UUID.randomUUID()).setFullName(dto.getFullName()).setLogin(dto.getLogin()).setPassword(dto.getPassword()).setDateOfBirth(dto.getDateOfBirth()).setCreatedAt(LocalDateTime.now()).setRole(User.ERole.USER).build();
-        user.setUpdatedAt(user.getCreatedAt());
-        return user;
-    }
-
-    private UserOutDto toUserOutDto(User user) {
-        UserOutDto userOut = new UserOutDto();
-        userOut.setId(user.getId());
-        userOut.setFullName(user.getFullName());
-        userOut.setLogin(user.getLogin());
-        userOut.setCreatedAt(user.getCreatedAt());
-        userOut.setUpdatedAt(user.getUpdatedAt());
-        userOut.setDateOfBirth(user.getDateOfBirth());
-        userOut.setRole(user.getRole());
-        return userOut;
+        return Mapper.toUserOutDto(user);
     }
 
     private void validateLogin(UserLoginInDto loginInDto) {
