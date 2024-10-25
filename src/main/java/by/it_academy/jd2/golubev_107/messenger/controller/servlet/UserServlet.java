@@ -11,13 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 
 @WebServlet(urlPatterns = "/api/user")
 public class UserServlet extends HttpServlet {
-    private static final String ENCODING = "UTF-8";
-    private static final String CONTENT_TYPE = "text/html; charset=utf-8";
     private static final String PARAM_FULL_NAME = "fullName";
     private static final String PARAM_DOB = "dateOfBirth";
     private static final String PARAM_LOGIN = "login";
@@ -31,7 +28,6 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        setEncodingContentType(req, resp);
         PrintWriter writer = resp.getWriter();
         try {
             UserCreateInDto inDto = toInputDto(req);
@@ -45,11 +41,6 @@ public class UserServlet extends HttpServlet {
 
             writer.println(e.getMessage());
         }
-    }
-
-    private void setEncodingContentType(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
-        req.setCharacterEncoding(ENCODING);
-        resp.setContentType(CONTENT_TYPE);
     }
 
     private UserCreateInDto toInputDto(HttpServletRequest req) {
