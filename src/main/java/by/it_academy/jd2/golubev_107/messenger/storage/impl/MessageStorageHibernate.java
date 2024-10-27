@@ -55,4 +55,15 @@ public class MessageStorageHibernate implements IMessageStorage {
                           .toList();
         });
     }
+
+    @Override
+    public long countAll() {
+        return hibernateManager.inTransaction(manager -> {
+            CriteriaBuilder builder = manager.getCriteriaBuilder();
+            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+            Root<Message> messageRoot = criteriaQuery.from(Message.class);
+            criteriaQuery.select(builder.count(messageRoot.get("id")));
+            return manager.createQuery(criteriaQuery).getSingleResult();
+        });
+    }
 }

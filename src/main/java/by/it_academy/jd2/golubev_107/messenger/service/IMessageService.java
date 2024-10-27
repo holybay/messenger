@@ -11,4 +11,6 @@ public interface IMessageService {
     void create(MessageCreateDto dto);
 
     List<MessageOutDto> getAll(UserOutDto controllerDto);
+
+    long countAll();
 }

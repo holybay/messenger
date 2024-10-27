@@ -12,4 +12,6 @@ public interface IMessageStorage {
     Message readById(Long id);
 
     List<Message> readAllReceivedByUser(UUID userId);
+
+    long countAll();
 }

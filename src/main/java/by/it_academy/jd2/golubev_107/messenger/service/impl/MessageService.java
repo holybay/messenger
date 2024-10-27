@@ -38,4 +38,8 @@ public class MessageService implements IMessageService {
                        .toList();
     }
 
+    @Override
+    public long countAll() {
+        return messageStorage.countAll();
+    }
 }
