@@ -32,9 +32,6 @@ public class MessageService implements IMessageService {
 
     @Override
     public List<MessageOutDto> getAll(UserOutDto controllerDto) {
-        if (controllerDto == null) {
-            throw new IllegalArgumentException("You aren't logged in!");
-        }
         List<Message> messages = messageStorage.readAllReceivedByUser(controllerDto.getId());
         return messages.stream()
                        .map(Mapper::toMessageOutDto)
