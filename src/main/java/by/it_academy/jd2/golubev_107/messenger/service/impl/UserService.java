@@ -59,6 +59,11 @@ public class UserService implements IUserService {
         return user;
     }
 
+    @Override
+    public long countAll() {
+        return storage.countAll();
+    }
+
     private void validateLogin(UserLoginInDto loginInDto) {
         List<String> errors = new ArrayList<>();
         String login = loginInDto.getLogin();

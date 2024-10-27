@@ -13,4 +13,6 @@ public interface IUserStorage {
     User readById(UUID id);
 
     User readByLogin(String login);
+
+    long countAll();
 }

@@ -50,4 +50,15 @@ public class UserStorageHibernate implements IUserStorage {
             }
         });
     }
+
+    @Override
+    public long countAll() {
+        return hibernateManager.inTransaction(manager -> {
+            CriteriaBuilder builder = manager.getCriteriaBuilder();
+            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+            Root<User> userRoot = criteriaQuery.from(User.class);
+            criteriaQuery.select(builder.count(userRoot.get("id")));
+            return manager.createQuery(criteriaQuery).getSingleResult();
+        });
+    }
 }

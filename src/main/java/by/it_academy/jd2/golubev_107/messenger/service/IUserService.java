@@ -16,4 +16,6 @@ public interface IUserService {
     UserOutDto getById(UUID id);
 
     User getByLogin(String login);
+
+    long countAll();
 }

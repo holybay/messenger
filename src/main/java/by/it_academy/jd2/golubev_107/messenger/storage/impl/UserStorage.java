@@ -29,6 +29,7 @@ public class UserStorage implements IUserStorage {
             SELECT id, full_name, login, password, date_of_birth, updated_at, created_at, role
             FROM app.users
             WHERE id = ?;""";
+    private static final String SELECT_COUNT_ALL_QUERY = "SELECT count(id) FROM app.users;";
     private final IConnectionManager connectionManager;
 
     public UserStorage(IConnectionManager connectionManager) {
@@ -107,17 +108,24 @@ public class UserStorage implements IUserStorage {
         return null;
     }
 
+    @Override
+    public long countAll() {
+        long userCount = 0L;
+        try (Connection conn = connectionManager.getConnection();
+             PreparedStatement countAll = conn.prepareStatement(SELECT_COUNT_ALL_QUERY)) {
+            try (ResultSet rs = countAll.executeQuery()) {
+                if (rs.next()) {
+                    userCount = rs.getLong(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to count all users!", e);
+        }
+        return userCount;
+    }
+
     private User mapper(ResultSet rs) throws SQLException {
-        return User.builder()
-                   .setId(rs.getObject("id", UUID.class))
-                   .setFullName(rs.getString("full_name"))
-                   .setLogin(rs.getString("login"))
-                   .setPassword(rs.getString("password"))
-                   .setDateOfBirth(rs.getDate("date_of_birth").toLocalDate())
-                   .setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime())
-                   .setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime())
-                   .setRole(User.ERole.valueOf(rs.getString("role")))
-                   .build();
+        return User.builder().setId(rs.getObject("id", UUID.class)).setFullName(rs.getString("full_name")).setLogin(rs.getString("login")).setPassword(rs.getString("password")).setDateOfBirth(rs.getDate("date_of_birth").toLocalDate()).setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime()).setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime()).setRole(User.ERole.valueOf(rs.getString("role"))).build();
     }
 
     private void createUser(User user, Connection conn) throws SQLException {
