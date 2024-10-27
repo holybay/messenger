@@ -27,6 +27,14 @@ CREATE TABLE app.messages (
 	CONSTRAINT messages_users_to_fk FOREIGN KEY (user_to_id) REFERENCES app.users (id)
 );
 
+CREATE TABLE app.statistics (
+	id bigserial NOT NULL,
+	counter_name CHARACTER VARYING NULL,
+	counter_value bigint,
+	CONSTRAINT statistics_pk PRIMARY KEY (id),
+	CONSTRAINT statistics_name_unq UNIQUE (counter_name)
+);
+
 
 
 
