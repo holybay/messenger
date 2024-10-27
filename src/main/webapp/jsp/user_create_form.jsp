@@ -5,11 +5,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Messager</title>
+    <title>Create User</title>
+    <style>
+        body {
+            background-color: rgb(224, 224, 224);
+            padding-left: 5%;
+        }
+    </style>
 </head>
 <body>
 <main>
-    <form name="user_create_form" method="post" action="http://localhost:8080/messenger/api/user">
+    <form name="user_create_form" method="post" action="${pageContext.request.contextPath}/api/user">
         <fieldset>
             <legend>Please fill in all fields:</legend>
             <label for="full_name">Full Name:</label>

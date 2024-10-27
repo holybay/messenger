@@ -5,14 +5,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Messager</title>
+    <title>Login</title>
+    <style>
+        body {
+            background-color: rgb(224, 224, 224);
+            padding-left: 5%;
+        }
+    </style>
 </head>
 <body>
 <main>
     <c:if test="${message != null}">
         <c:out value="${message}"/>
     </c:if>
-    <form name="user_login_form" method="post" action="http://localhost:8080/messenger/api/login">
+    <form name="user_login_form" method="post" action="${pageContext.request.contextPath}/api/login">
         <fieldset>
             <legend>Please log in:</legend>
             <label for="user_login">Login:</label>
