@@ -12,14 +12,14 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "UserSecurityFilter", urlPatterns = {"ui/user", "ui/user/*", "api/message"})
+@WebFilter(filterName = "UserSecurityFilter", urlPatterns = {"/ui/user", "/ui/user/*", "/api/message"})
 public class UserSecurityFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse resp = (HttpServletResponse) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
         String contextPath = req.getContextPath();
         HttpSession session = req.getSession();
         if (session != null && session.getAttribute("user") != null) {
