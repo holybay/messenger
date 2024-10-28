@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
             UserOutDto userOut = service.login(userIn);
             HttpSession session = req.getSession();
             session.setAttribute("user", userOut);
+            resp.sendRedirect(req.getContextPath() + "/ui/user");
         } catch (IllegalArgumentException e) {
             req.setAttribute("message", e.getMessage());
             doGet(req, resp);
