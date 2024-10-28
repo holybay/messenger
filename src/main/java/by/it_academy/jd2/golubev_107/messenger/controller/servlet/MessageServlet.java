@@ -81,7 +81,7 @@ public class MessageServlet extends HttpServlet {
         MessageCreateDto newMessage = new MessageCreateDto();
         newMessage.setFrom(user);
         newMessage.setTo(req.getParameter(PARAM_TO));
-        newMessage.setTo(req.getParameter(PARAM_TEXT));
+        newMessage.setText(req.getParameter(PARAM_TEXT));
         return newMessage;
     }
 }
