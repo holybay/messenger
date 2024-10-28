@@ -16,8 +16,7 @@
 <body>
 <main>
     <h1>Hello, ${user.login}</h1>
-    <form style="display: inline" action="${pageContext.request.contextPath}/ui" method="get">
-        ${request.session.removeAttribute("user")}
+    <form style="display: inline" action="${pageContext.request.contextPath}/ui/signOut" method="post">
         <button>Log out</button>
     </form>
 
