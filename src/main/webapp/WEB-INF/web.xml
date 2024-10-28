@@ -14,4 +14,8 @@
         <filter-name>UserSecurityFilter</filter-name>
         <url-pattern/>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminSecurityFilter</filter-name>
+        <url-pattern/>
+    </filter-mapping>
 </web-app>
