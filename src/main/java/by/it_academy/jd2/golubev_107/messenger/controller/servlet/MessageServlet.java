@@ -54,7 +54,8 @@ public class MessageServlet extends HttpServlet {
             messageService.create(newMessage);
         } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
-            resp.sendRedirect(req.getContextPath() + "/user_login_form.jsp");
+            req.setAttribute("errorMessage", e.getMessage());
+            req.getRequestDispatcher("/jsp/message_create_form.jsp").forward(req, resp);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             resp.sendRedirect(req.getContextPath() + "/jsp/error.jsp");

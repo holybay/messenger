@@ -41,6 +41,9 @@
             <legend>Please enter your message:</legend>
                 <label for="message_to">To:</label>
                 <input id="message_to" name="to" type="text" placeholder="Please enter a user login" required/>
+                <c:if test="${errorMessage != null}">
+                    ${errorMessage}
+                </c:if>
                 <br>
                 <label for="message_text">Your message:</label>
                 <textarea id="message_text" name="text" rows="6" cols="60"></textarea>
