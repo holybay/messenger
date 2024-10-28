@@ -53,6 +53,7 @@ public class MessageServlet extends HttpServlet {
             UserOutDto user = getUserFromSession(req);
             MessageCreateDto newMessage = toMessageDto(req, user);
             messageService.create(newMessage);
+            req.getRequestDispatcher("/jsp/message_sent_success.jsp").forward(req, resp);
         } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
             req.setAttribute("errorMessage", e.getMessage());
