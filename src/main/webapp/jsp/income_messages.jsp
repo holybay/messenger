@@ -49,6 +49,9 @@
                     </c:otherwise>
                 </c:choose>
             </table>
+            <form style="display: inline" action="${pageContext.request.contextPath}/ui/user" method="get">
+                <button>Back</button>
+            </form>
     </main>
 </body>
 </html>

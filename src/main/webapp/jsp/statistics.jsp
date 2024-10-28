@@ -44,6 +44,9 @@
                 <th>${statResult.totalMessagesSent}</th>
             </tr>
         </table>
+        <form style="display: inline" action="${pageContext.request.contextPath}/ui/user" method="get">
+            <button>Back</button>
+        </form>
     </main>
 </body>
 </html>

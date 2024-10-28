@@ -16,6 +16,18 @@
   <body>
     <main>
       <div>Something went wrong ... </div>
+      <c:choose>
+        <c:when test="${user != null}">
+            <form style="display: inline" action="${pageContext.request.contextPath}/ui/user" method="get">
+                <button>Back</button>
+            </form>
+        </c:when>
+        <c:otherwise>
+            <form style="display: inline" action="${pageContext.request.contextPath}/ui" method="get">
+                <button>Back</button>
+            </form>
+        </c:otherwise>
+      </c:choose>
     </main>
   </body>
 </html>
