@@ -69,11 +69,7 @@ public class MessageServlet extends HttpServlet {
 
     private UserOutDto getUserFromSession(HttpServletRequest req) {
         HttpSession session = req.getSession();
-        Object userAttribute = session.getAttribute(SESSION_USER);
-        if (userAttribute == null) {
-            throw new NoSuchElementException("You aren't signed in!");
-        }
-        if (userAttribute instanceof UserOutDto user) {
+        if (session.getAttribute(SESSION_USER) instanceof UserOutDto user) {
             return user;
         }
         session.removeAttribute(SESSION_USER);
