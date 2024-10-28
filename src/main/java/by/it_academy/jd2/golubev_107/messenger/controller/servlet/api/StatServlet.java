@@ -1,4 +1,4 @@
-package by.it_academy.jd2.golubev_107.messenger.controller.servlet;
+package by.it_academy.jd2.golubev_107.messenger.controller.servlet.api;
 
 import by.it_academy.jd2.golubev_107.messenger.service.IStatService;
 import by.it_academy.jd2.golubev_107.messenger.service.dto.statistics.StatResultDto;
