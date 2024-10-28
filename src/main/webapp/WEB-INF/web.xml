@@ -10,4 +10,8 @@
         <filter-name>EncodingFilter</filter-name>
         <url-pattern/>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserSecurityFilter</filter-name>
+        <url-pattern/>
+    </filter-mapping>
 </web-app>
